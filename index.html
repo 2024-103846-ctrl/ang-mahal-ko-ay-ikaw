@@ -1,0 +1,1042 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sinta at Kasama — My Favorite Comrade, My Safest Home</title>
+    
+    <!-- Google Fonts for Luxury & Elegance -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700;900&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+    
+    <!-- Tailwind CSS for Responsive Layouts -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Lucide Icons for Premium Minimalist Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        gold: '#d4af37',
+                        crimson: '#991b1b',
+                        warmblack: '#09050b',
+                        darkpurple: '#1c0924',
+                    },
+                    fontFamily: {
+                        cinzel: ['Cinzel', 'serif'],
+                        playfair: ['Playfair Display', 'serif'],
+                        sans: ['Plus Jakarta Sans', 'sans-serif'],
+                    },
+                }
+            }
+        }
+    </script>
+
+    <style>
+        /* Custom Glowing & Glassmorphic Utilities */
+        body {
+            background-color: #050206;
+            overflow-x: hidden;
+        }
+
+        .glass-panel {
+            background: rgba(18, 8, 22, 0.65);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid rgba(212, 175, 55, 0.15);
+            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+        }
+
+        .glass-panel-heavy {
+            background: rgba(10, 3, 12, 0.9);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(212, 175, 55, 0.25);
+        }
+
+        .glow-gold {
+            text-shadow: 0 0 10px rgba(212, 175, 55, 0.4), 0 0 20px rgba(212, 175, 55, 0.2);
+        }
+
+        .glow-rose {
+            text-shadow: 0 0 10px rgba(244, 63, 94, 0.5), 0 0 20px rgba(244, 63, 94, 0.2);
+        }
+
+        .glow-box-gold {
+            box-shadow: 0 0 20px rgba(212, 175, 55, 0.15);
+        }
+
+        .glow-box-rose {
+            box-shadow: 0 0 25px rgba(244, 63, 94, 0.2);
+        }
+
+        /* Border Glow Animation */
+        @keyframes borderGlow {
+            0%, 100% { border-color: rgba(212, 175, 55, 0.2); }
+            50% { border-color: rgba(244, 63, 94, 0.6); }
+        }
+
+        .animated-border {
+            border-width: 1px;
+            animation: borderGlow 6s infinite alternate;
+        }
+
+        /* Subtle Light Beam Overlay */
+        .light-beam {
+            background: radial-gradient(circle at 50% -20%, rgba(244, 63, 94, 0.15) 0%, rgba(5, 2, 6, 0) 60%);
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 6px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #050206;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: rgba(212, 175, 55, 0.3);
+            border-radius: 10px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: rgba(244, 63, 94, 0.5);
+        }
+
+        /* Equalizer Animation */
+        .eq-bar {
+            transform-origin: bottom;
+            animation: bounce 1.2s ease-in-out infinite alternate;
+        }
+        .eq-bar-1 { animation-delay: 0.1s; }
+        .eq-bar-2 { animation-delay: 0.4s; }
+        .eq-bar-3 { animation-delay: 0.2s; }
+        .eq-bar-4 { animation-delay: 0.5s; }
+
+        @keyframes bounce {
+            0% { transform: scaleY(0.2); }
+            100% { transform: scaleY(1); }
+        }
+
+        /* Smooth Floating Animation */
+        @keyframes floating {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-10px) rotate(2deg); }
+        }
+        .float-element {
+            animation: floating 5s ease-in-out infinite;
+        }
+    </style>
+</head>
+<body class="text-stone-200 font-sans selection:bg-rose-900 selection:text-white">
+
+    <!-- Ambient Canvas Particles Base -->
+    <canvas id="particleCanvas" class="fixed top-0 left-0 w-full h-full pointer-events-none z-0"></canvas>
+
+    <!-- LOADING SCREEN -->
+    <div id="loadingScreen" class="fixed inset-0 z-50 flex flex-col items-center justify-content-center bg-[#050206] transition-all duration-1000 ease-out">
+        <div class="m-auto text-center px-4 flex flex-col items-center">
+            <div class="relative mb-6">
+                <!-- Outer Pulsing Glow -->
+                <div class="absolute -inset-4 bg-rose-600/20 rounded-full blur-xl animate-ping duration-2000"></div>
+                <!-- Intertwined Fist and Heart Icon (Activist Love) -->
+                <div class="relative w-20 h-20 bg-gradient-to-tr from-rose-900 to-amber-600 rounded-full flex items-center justify-center border border-gold/30">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-10 w-10 text-gold" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12z" />
+                    </svg>
+                </div>
+            </div>
+            <h2 class="font-cinzel text-2xl md:text-3xl tracking-widest text-gold glow-gold mb-2 uppercase">Laban at Pangarap</h2>
+            <p class="font-playfair italic text-rose-300 text-sm md:text-base tracking-wider">"Sapagkat ang tunay na pag-ibig ay mapagpalaya."</p>
+            <div class="w-48 h-[2px] bg-stone-800 mx-auto mt-6 rounded-full overflow-hidden">
+                <div class="h-full bg-gradient-to-r from-rose-600 to-amber-400 animate-pulse w-full"></div>
+            </div>
+            <p class="text-[10px] text-stone-500 uppercase tracking-widest mt-3">Compiling romantic code...</p>
+        </div>
+    </div>
+
+    <!-- STICKY HEADER / NAVIGATION -->
+    <nav class="fixed top-0 left-0 w-full z-40 glass-panel border-b border-rose-950/40">
+        <div class="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
+            <a href="#home" class="font-cinzel text-xl md:text-2xl font-bold tracking-widest text-gold glow-gold flex items-center gap-2">
+                SINTA <span class="text-rose-500">❤️</span>
+            </a>
+            
+            <!-- Desktop Nav Links -->
+            <div class="hidden md:flex items-center space-x-8 font-sans text-xs tracking-widest uppercase font-medium">
+                <a href="#gallery" class="hover:text-gold transition-colors duration-300 text-stone-400">Gallery</a>
+                <a href="#music" class="hover:text-gold transition-colors duration-300 text-stone-400">Our Soundtrack</a>
+                <a href="#compliments" class="hover:text-gold transition-colors duration-300 text-stone-400">Promises</a>
+                <a href="#letter" class="hover:text-gold transition-colors duration-300 text-stone-400">Love Letter</a>
+                <a href="#poem" class="hover:text-gold transition-colors duration-300 text-stone-400">Tula</a>
+                <a href="#scripture" class="hover:text-gold transition-colors duration-300 text-stone-400">Scripture</a>
+            </div>
+
+            <!-- Live Clock Display (Time Spent / Real-Time in Manila) -->
+            <div class="text-right flex flex-col items-end">
+                <span class="text-[10px] uppercase tracking-widest text-rose-400 font-semibold flex items-center gap-1">
+                     <i data-lucide="clock" class="w-3 h-3 text-gold"></i> Live Manila Time
+                </span>
+                <span id="liveClock" class="font-mono text-sm text-gold tracking-wider font-semibold glow-gold">00:00:00 PM</span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- MAIN BODY CONTENT -->
+    <main class="relative z-10 pt-20">
+
+        <!-- HEADER / HERO SECTION -->
+        <section id="home" class="min-h-screen flex flex-col items-center justify-center relative overflow-hidden light-beam px-4 py-16">
+            <div class="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(153,27,27,0.08)_0%,transparent_70%)]"></div>
+            
+            <div class="text-center max-w-4xl mx-auto z-10 relative">
+                <!-- Top Badge -->
+                <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full glass-panel border-rose-500/20 text-rose-300 text-xs tracking-widest uppercase mb-8 animate-fade-in">
+                    <span class="w-2 h-2 rounded-full bg-rose-500 animate-ping"></span>
+                    My Beloved Sinta
+                </div>
+
+                <!-- Glowing Elegant Name -->
+                <h1 class="font-cinzel text-5xl md:text-8xl font-black tracking-widest mb-6 leading-tight select-none">
+                    <span class="bg-gradient-to-r from-amber-200 via-gold to-rose-400 bg-clip-text text-transparent glow-rose">
+                        KASAMA AT TAHANAN
+                    </span>
+                </h1>
+
+                <!-- Subtitle with custom glowing text -->
+                <p class="font-playfair italic text-xl md:text-3xl text-stone-300 tracking-wide max-w-2xl mx-auto leading-relaxed mb-4">
+                    “My favorite comrade, <span class="text-rose-500 relative inline-block">my safest home<span class="absolute bottom-0 left-0 w-full h-[2px] bg-rose-600"></span></span> ❤️”
+                </p>
+
+                <!-- Programmatic & Romantic Mini Statement -->
+                <p class="text-stone-500 font-mono text-xs md:text-sm tracking-wider uppercase mb-12">
+                    const myLove = { status: "infinite", revolutionary: true, anchor: "you" };
+                </p>
+
+                <!-- Glowing Interactive Love Trigger -->
+                <div class="flex flex-col items-center gap-4">
+                    <button onclick="triggerLoveEffects(this)" class="group relative px-8 py-4 rounded-full bg-gradient-to-r from-rose-950/80 via-rose-900/90 to-amber-950/80 hover:from-rose-900 hover:to-amber-900 text-gold border border-gold/40 hover:border-gold shadow-2xl transition-all duration-500 overflow-hidden transform hover:-translate-y-1 hover:scale-105 active:scale-95 glow-box-gold">
+                        <!-- Ripple effect inside -->
+                        <span class="absolute inset-0 w-full h-full bg-gradient-to-r from-amber-400/10 to-rose-500/10 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></span>
+                        <span class="relative font-cinzel text-sm tracking-widest font-bold flex items-center gap-3">
+                            <i data-lucide="heart" class="w-4 h-4 fill-rose-600 text-rose-600 animate-pulse"></i>
+                            Tap to Feel My Love
+                            <i data-lucide="sparkles" class="w-4 h-4 text-gold"></i>
+                        </span>
+                    </button>
+                    <p class="text-[10px] text-stone-500 tracking-widest uppercase">Click repeatedly for revolutionary sparkles</p>
+                </div>
+            </div>
+
+            <!-- Scroll Indicator -->
+            <div class="absolute bottom-10 left-1/2 transform -translate-x-1/2 flex flex-col items-center gap-2 opacity-60">
+                <span class="text-[10px] uppercase tracking-widest text-gold font-semibold font-cinzel">Scroll to Explore Our Journey</span>
+                <div class="w-5 h-9 rounded-full border border-gold/30 flex justify-center pt-2">
+                    <div class="w-1.5 h-1.5 bg-rose-500 rounded-full animate-bounce"></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- PHOTO GALLERY SECTION -->
+        <section id="gallery" class="py-24 px-6 relative bg-[#09050b]/80 border-t border-rose-950/40">
+            <div class="max-w-7xl mx-auto relative z-10">
+                
+                <div class="text-center mb-16">
+                    <h2 class="font-cinzel text-3xl md:text-5xl text-gold tracking-widest mb-4">MGA SANDALI SA PILING MO</h2>
+                    <div class="h-[1px] w-48 bg-gradient-to-r from-transparent via-gold to-transparent mx-auto mb-4"></div>
+                    <p class="font-playfair italic text-rose-300 md:text-lg">Framing moments of peace, hope, and beautiful resistance</p>
+                </div>
+
+                <!-- Romantic Cinematic Gallery Grid -->
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-12">
+                    
+                    <!-- Card 1 -->
+                    <div class="group relative overflow-hidden rounded-2xl glass-panel animated-border transition-all duration-500 hover:-translate-y-2 hover:shadow-2xl">
+                        <div class="relative aspect-[4/5] overflow-hidden bg-stone-900">
+                            <!-- Premium Gradient Overlay -->
+                            <div class="absolute inset-0 bg-gradient-to-t from-stone-950 via-transparent to-transparent opacity-90 z-10 transition-opacity duration-500 group-hover:opacity-75"></div>
+                            
+                            <!-- Main Image with Failover -->
+                            <img src="https://drive.google.com/uc?export=view&id=1HY8SoiqR9IcwOnZO19D14vFPnNt9K0IV" 
+                                 alt="Our Memory 1" 
+                                 class="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-110"
+                                 onerror="handleImageError(this, 'Revolutionary Warmth')">
+                            
+                            <!-- Custom Decorative Border Layout -->
+                            <div class="absolute inset-4 border border-rose-500/20 rounded-xl pointer-events-none z-20 group-hover:border-gold/40 transition-colors duration-500"></div>
+
+                            <!-- Live Heart Badge -->
+                            <div class="absolute top-4 right-4 z-20 bg-rose-900/70 border border-rose-500/30 text-white text-[10px] uppercase font-mono px-3 py-1 rounded-full flex items-center gap-1.5 backdrop-blur-md">
+                                <span class="w-1.5 h-1.5 rounded-full bg-rose-500 animate-pulse"></span>
+                                Live Heart
+                            </div>
+                        </div>
+                        
+                        <!-- Caption area with elegant layout -->
+                        <div class="p-6 relative z-20 bg-stone-950/90 border-t border-rose-950/40">
+                            <span class="font-mono text-xs text-gold/60 tracking-widest uppercase block mb-1">PROTEST & PEACE • I</span>
+                            <h3 class="font-playfair text-xl text-stone-100 group-hover:text-gold transition-colors duration-300 italic mb-2">
+                                “My peace in every protest.”
+                            </h3>
+                            <p class="text-xs text-stone-400 font-sans leading-relaxed">
+                                Standing together in the face of chaos, you make every system of gravity look beautiful and stable.
+                            </p>
+                        </div>
+                    </div>
+
+                    <!-- Card 2 -->
+                    <div class="group relative overflow-hidden rounded-2xl glass-panel animated-border transition-all duration-500 hover:-translate-y-2 hover:shadow-2xl">
+                        <div class="relative aspect-[4/5] overflow-hidden bg-stone-900">
+                            <!-- Premium Gradient Overlay -->
+                            <div class="absolute inset-0 bg-gradient-to-t from-stone-950 via-transparent to-transparent opacity-90 z-10 transition-opacity duration-500 group-hover:opacity-75"></div>
+                            
+                            <!-- Main Image with Failover -->
+                            <img src="https://drive.google.com/uc?export=view&id=1fqPUs08W-zi_unKwyq3KgiUP1WPsSqqv" 
+                                 alt="Our Memory 2" 
+                                 class="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-110"
+                                 onerror="handleImageError(this, 'Our Strongest Smile')">
+                            
+                            <div class="absolute inset-4 border border-rose-500/20 rounded-xl pointer-events-none z-20 group-hover:border-gold/40 transition-colors duration-500"></div>
+
+                            <div class="absolute top-4 right-4 z-20 bg-rose-900/70 border border-rose-500/30 text-white text-[10px] uppercase font-mono px-3 py-1 rounded-full flex items-center gap-1.5 backdrop-blur-md">
+                                <span class="w-1.5 h-1.5 rounded-full bg-rose-500 animate-pulse"></span>
+                                Radiant Joy
+                            </div>
+                        </div>
+                        
+                        <!-- Caption area with elegant layout -->
+                        <div class="p-6 relative z-20 bg-stone-950/90 border-t border-rose-950/40">
+                            <span class="font-mono text-xs text-gold/60 tracking-widest uppercase block mb-1">PROTEST & PEACE • II</span>
+                            <h3 class="font-playfair text-xl text-stone-100 group-hover:text-gold transition-colors duration-300 italic mb-2">
+                                “The woman behind my strongest smile.”
+                            </h3>
+                            <p class="text-xs text-stone-400 font-sans leading-relaxed">
+                                Behind every line of code, every dream of a better society, and every laughter that escapes my lips, you reign supreme.
+                            </p>
+                        </div>
+                    </div>
+
+                    <!-- Card 3 -->
+                    <div class="group relative overflow-hidden rounded-2xl glass-panel animated-border transition-all duration-500 hover:-translate-y-2 hover:shadow-2xl">
+                        <div class="relative aspect-[4/5] overflow-hidden bg-stone-900">
+                            <!-- Premium Gradient Overlay -->
+                            <div class="absolute inset-0 bg-gradient-to-t from-stone-950 via-transparent to-transparent opacity-90 z-10 transition-opacity duration-500 group-hover:opacity-75"></div>
+                            
+                            <!-- Main Image with Failover -->
+                            <img src="https://drive.google.com/uc?export=view&id=1Tt9NFVQpg00n1-ztRWg0TjVIMFikBUu8" 
+                                 alt="Our Memory 3" 
+                                 class="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-110"
+                                 onerror="handleImageError(this, 'Gentle Revolution')">
+                            
+                            <div class="absolute inset-4 border border-rose-500/20 rounded-xl pointer-events-none z-20 group-hover:border-gold/40 transition-colors duration-500"></div>
+
+                            <div class="absolute top-4 right-4 z-20 bg-rose-900/70 border border-rose-500/30 text-white text-[10px] uppercase font-mono px-3 py-1 rounded-full flex items-center gap-1.5 backdrop-blur-md">
+                                <span class="w-1.5 h-1.5 rounded-full bg-rose-500 animate-pulse"></span>
+                                Tender Soul
+                            </div>
+                        </div>
+                        
+                        <!-- Caption area with elegant layout -->
+                        <div class="p-6 relative z-20 bg-stone-950/90 border-t border-rose-950/40">
+                            <span class="font-mono text-xs text-gold/60 tracking-widest uppercase block mb-1">PROTEST & PEACE • III</span>
+                            <h3 class="font-playfair text-xl text-stone-100 group-hover:text-gold transition-colors duration-300 italic mb-2">
+                                “A heart softer than poetry, stronger than revolution.”
+                            </h3>
+                            <p class="text-xs text-stone-400 font-sans leading-relaxed">
+                                You bring gentle clarity into a complicated world. A perfect balance of fiery courage and absolute grace.
+                            </p>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+        <!-- SOUNDTRACK SECTION -->
+        <section id="music" class="py-24 px-6 relative light-beam">
+            <div class="max-w-5xl mx-auto relative z-10">
+                <div class="text-center mb-16">
+                    <h2 class="font-cinzel text-3xl md:text-5xl text-gold tracking-widest mb-4">OUR REVOLUTIONARY MELODY</h2>
+                    <div class="h-[1px] w-48 bg-gradient-to-r from-transparent via-gold to-transparent mx-auto mb-4"></div>
+                    <p class="font-playfair italic text-rose-300 md:text-lg">Listen to the soft notes of our beautiful journey</p>
+                </div>
+
+                <!-- Elegant Floating Music Player Card -->
+                <div class="glass-panel rounded-3xl p-6 md:p-10 animated-border glow-box-rose relative overflow-hidden max-w-4xl mx-auto">
+                    
+                    <!-- Decorative Background Elements -->
+                    <div class="absolute -right-16 -bottom-16 w-64 h-64 bg-rose-600/10 rounded-full blur-3xl pointer-events-none"></div>
+                    <div class="absolute -left-16 -top-16 w-64 h-64 bg-amber-600/10 rounded-full blur-3xl pointer-events-none"></div>
+
+                    <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+                        
+                        <!-- Album Art / Equalizer Animation Visualizer (Left Column) -->
+                        <div class="lg:col-span-5 flex flex-col items-center justify-center">
+                            <div class="relative w-48 h-48 md:w-56 md:h-56 rounded-full overflow-hidden border-2 border-gold/40 glow-box-gold float-element flex items-center justify-center bg-stone-950">
+                                
+                                <!-- Decorative Vinyl grooves -->
+                                <div class="absolute inset-2 border border-stone-800 rounded-full"></div>
+                                <div class="absolute inset-8 border border-stone-800 rounded-full"></div>
+                                <div class="absolute inset-14 border border-stone-800 rounded-full"></div>
+                                
+                                <!-- Center core -->
+                                <div class="w-16 h-16 bg-gradient-to-tr from-rose-950 to-amber-950 rounded-full flex items-center justify-center border border-gold/30 z-10">
+                                    <i data-lucide="music" class="w-6 h-6 text-gold animate-bounce"></i>
+                                </div>
+
+                                <!-- Equalizer display background -->
+                                <div class="absolute bottom-6 left-0 right-0 flex items-end justify-center gap-1.5 h-16 pointer-events-none">
+                                    <div class="eq-bar eq-bar-1 w-1.5 h-14 bg-rose-600/60 rounded-full"></div>
+                                    <div class="eq-bar eq-bar-2 w-1.5 h-10 bg-rose-500/60 rounded-full"></div>
+                                    <div class="eq-bar eq-bar-3 w-1.5 h-16 bg-gold/60 rounded-full"></div>
+                                    <div class="eq-bar eq-bar-4 w-1.5 h-12 bg-amber-500/60 rounded-full"></div>
+                                    <div class="eq-bar eq-bar-2 w-1.5 h-8 bg-rose-400/60 rounded-full"></div>
+                                    <div class="eq-bar eq-bar-1 w-1.5 h-12 bg-rose-600/60 rounded-full"></div>
+                                </div>
+                            </div>
+                            
+                            <div class="text-center mt-6">
+                                <h4 class="font-cinzel text-lg text-gold font-bold tracking-widest glow-gold">Our Sacred Song</h4>
+                                <p class="text-xs text-stone-400 font-mono tracking-wider uppercase mt-1">Status: In Loop Forever</p>
+                            </div>
+                        </div>
+
+                        <!-- Elegant YouTube Embedded Video Player & Controls (Right Column) -->
+                        <div class="lg:col-span-7 w-full">
+                            <div class="bg-stone-950/90 rounded-2xl border border-rose-950/80 p-4 shadow-inner relative">
+                                <!-- Customized Header Display of the Player -->
+                                <div class="flex items-center justify-between mb-3 border-b border-rose-950/60 pb-2.5">
+                                    <div class="flex items-center gap-2">
+                                        <span class="w-3 h-3 rounded-full bg-rose-600"></span>
+                                        <span class="w-3 h-3 rounded-full bg-amber-500"></span>
+                                        <span class="w-3 h-3 rounded-full bg-emerald-500"></span>
+                                    </div>
+                                    <span class="text-[10px] text-stone-500 tracking-widest font-mono uppercase">ROMANTIC DECK v2.5</span>
+                                </div>
+
+                                <!-- Embed Container with proper aspect ratio -->
+                                <div class="relative w-full rounded-xl overflow-hidden shadow-2xl bg-stone-950" style="padding-top: 56.25%;">
+                                    <iframe 
+                                        class="absolute top-0 left-0 w-full h-full border-0" 
+                                        src="https://www.youtube.com/embed/k0TyqFx5lyQ?autoplay=0&mute=0&controls=1&showinfo=0&rel=0" 
+                                        title="Romantic Melody For Her" 
+                                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                                        allowfullscreen>
+                                    </iframe>
+                                </div>
+
+                                <!-- Mini Console Controls Info -->
+                                <div class="mt-4 flex flex-col md:flex-row items-center justify-between text-[11px] text-stone-400 gap-3">
+                                    <span class="flex items-center gap-1.5 font-mono">
+                                        <i data-lucide="radio" class="w-3.5 h-3.5 text-rose-500 animate-pulse"></i>
+                                        Elegantly Embedded YouTube Soundtrack
+                                    </span>
+                                    <div class="flex items-center gap-3">
+                                        <button class="hover:text-gold transition-colors" onclick="alertInfo('Repeat loop is active in our hearts!')" title="Repeat Single Track">
+                                            <i data-lucide="repeat" class="w-4 h-4"></i>
+                                        </button>
+                                        <button class="hover:text-gold transition-colors" onclick="alertInfo('Shuffle is locked: You are always next.')" title="Shuffle Mode">
+                                            <i data-lucide="shuffle" class="w-4 h-4"></i>
+                                        </button>
+                                        <span class="px-2 py-0.5 rounded bg-rose-950/60 text-gold font-mono text-[9px]">STEREO PROMPT</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- PROMISES / COMPLIMENTS SECTION -->
+        <section id="compliments" class="py-24 px-6 relative bg-gradient-to-b from-stone-950 to-[#0e0712] border-t border-rose-950/40">
+            <div class="max-w-6xl mx-auto relative z-10">
+                <div class="text-center mb-16">
+                    <h2 class="font-cinzel text-3xl md:text-5xl text-gold tracking-widest mb-4">REVOLUTIONARY PROMISES</h2>
+                    <div class="h-[1px] w-48 bg-gradient-to-r from-transparent via-gold to-transparent mx-auto mb-4"></div>
+                    <p class="font-playfair italic text-rose-300 md:text-lg">What I whisper to my heart whenever I see your fierce grace</p>
+                </div>
+
+                <!-- Custom Elegant Interactive Grid -->
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                    
+                    <!-- Compliment 1 -->
+                    <div class="glass-panel rounded-2xl p-6 hover:bg-rose-950/20 transition-all duration-300 border-l-4 border-l-rose-600 hover:-translate-y-1">
+                        <div class="flex items-start gap-4">
+                            <div class="p-2.5 bg-rose-950/80 rounded-lg text-gold border border-gold/10">
+                                <i data-lucide="flame" class="w-5 h-5 text-rose-500"></i>
+                            </div>
+                            <div>
+                                <p class="font-playfair italic text-stone-200 text-lg leading-relaxed mb-2">
+                                    “You are the revolution my heart chose.”
+                                </p>
+                                <p class="text-xs text-stone-500 font-sans">Because some uprisings don’t seek to conquer empires; they seek to heal souls.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Compliment 2 -->
+                    <div class="glass-panel rounded-2xl p-6 hover:bg-rose-950/20 transition-all duration-300 border-l-4 border-l-amber-500 hover:-translate-y-1">
+                        <div class="flex items-start gap-4">
+                            <div class="p-2.5 bg-rose-950/80 rounded-lg text-gold border border-gold/10">
+                                <i data-lucide="shield" class="w-5 h-5 text-amber-500"></i>
+                            </div>
+                            <div>
+                                <p class="font-playfair italic text-stone-200 text-lg leading-relaxed mb-2">
+                                    “Even in chaos, your love feels like peace.”
+                                </p>
+                                <p class="text-xs text-stone-500 font-sans">No teargas, sirens, or roaring streets can distract me from the safety of your arms.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Compliment 3 -->
+                    <div class="glass-panel rounded-2xl p-6 hover:bg-rose-950/20 transition-all duration-300 border-l-4 border-l-pink-600 hover:-translate-y-1">
+                        <div class="flex items-start gap-4">
+                            <div class="p-2.5 bg-rose-950/80 rounded-lg text-gold border border-gold/10">
+                                <i data-lucide="sun" class="w-5 h-5 text-pink-500 animate-spin-slow"></i>
+                            </div>
+                            <div>
+                                <p class="font-playfair italic text-stone-200 text-lg leading-relaxed mb-2">
+                                    “Your smile feels like sunrise after every long night.”
+                                </p>
+                                <p class="text-xs text-stone-500 font-sans">A stunning dawn breaking through the darkest cloud of fatigue and battle.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Compliment 4 -->
+                    <div class="glass-panel rounded-2xl p-6 hover:bg-rose-950/20 transition-all duration-300 border-l-4 border-l-gold hover:-translate-y-1">
+                        <div class="flex items-start gap-4">
+                            <div class="p-2.5 bg-rose-950/80 rounded-lg text-gold border border-gold/10">
+                                <i data-lucide="feather" class="w-5 h-5 text-gold"></i>
+                            </div>
+                            <div>
+                                <p class="font-playfair italic text-stone-200 text-lg leading-relaxed mb-2">
+                                    “You are poetry written in courage and kindness.”
+                                </p>
+                                <p class="text-xs text-stone-500 font-sans">The kind of verse that transforms listeners and makes the unjust tremble.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Compliment 5 -->
+                    <div class="glass-panel rounded-2xl p-6 hover:bg-rose-950/20 transition-all duration-300 border-l-4 border-l-red-500 hover:-translate-y-1">
+                        <div class="flex items-start gap-4">
+                            <div class="p-2.5 bg-rose-950/80 rounded-lg text-gold border border-gold/10">
+                                <i data-lucide="code" class="w-5 h-5 text-rose-500"></i>
+                            </div>
+                            <div>
+                                <p class="font-playfair italic text-stone-200 text-lg leading-relaxed mb-2">
+                                    “No code could ever fully express how much I love you.”
+                                </p>
+                                <p class="text-xs text-stone-500 font-sans">No language, compiler, or algorithm can encapsulate the variables of my adoration.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Compliment 6 -->
+                    <div class="glass-panel rounded-2xl p-6 hover:bg-rose-950/20 transition-all duration-300 border-l-4 border-l-indigo-500 hover:-translate-y-1">
+                        <div class="flex items-start gap-4">
+                            <div class="p-2.5 bg-rose-950/80 rounded-lg text-gold border border-gold/10">
+                                <i data-lucide="flag" class="w-5 h-5 text-indigo-400"></i>
+                            </div>
+                            <div>
+                                <p class="font-playfair italic text-stone-200 text-lg leading-relaxed mb-2">
+                                    “In every rally, every dream, every future — I choose you.”
+                                </p>
+                                <p class="text-xs text-stone-500 font-sans">Because walking alongside you is the proudest, most meaningful journey of my life.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+        <!-- LOVE LETTER SECTION -->
+        <section id="letter" class="py-24 px-6 relative light-beam">
+            <div class="max-w-4xl mx-auto relative z-10">
+                <div class="text-center mb-12">
+                    <h2 class="font-cinzel text-3xl md:text-5xl text-gold tracking-widest mb-4">A LETTER TO MY COMPANION</h2>
+                    <div class="h-[1px] w-48 bg-gradient-to-r from-transparent via-gold to-transparent mx-auto"></div>
+                </div>
+
+                <!-- Glassmorphism Love Letter Card with premium accents -->
+                <div class="glass-panel rounded-3xl p-8 md:p-14 border border-rose-500/20 shadow-2xl relative overflow-hidden animated-border">
+                    <!-- Ribbon Decoration -->
+                    <div class="absolute top-0 right-0 w-36 h-36 bg-gradient-to-bl from-rose-950 to-transparent rotate-12 pointer-events-none opacity-45"></div>
+                    
+                    <!-- Letter Header (Sealed Look) -->
+                    <div class="flex items-center justify-between mb-8 border-b border-rose-950/60 pb-6">
+                        <div class="flex items-center gap-3">
+                            <div class="w-10 h-10 rounded-full bg-rose-900/60 flex items-center justify-center border border-rose-500/20">
+                                <i data-lucide="mail-open" class="w-5 h-5 text-gold"></i>
+                            </div>
+                            <div>
+                                <p class="font-cinzel text-xs tracking-widest text-gold">A COMRADE'S HEARTH</p>
+                                <p class="text-[10px] text-stone-500 font-mono">ENCRYPTED WITH UNCONDITIONAL LOVE</p>
+                            </div>
+                        </div>
+                        <div class="text-right">
+                            <p class="font-mono text-xs text-rose-400 tracking-wider">EST. PRESENT & BEYOND</p>
+                        </div>
+                    </div>
+
+                    <!-- Letter Body -->
+                    <div class="font-playfair text-lg md:text-xl text-stone-200 leading-relaxed space-y-6 md:space-y-8 select-text">
+                        <p class="italic text-gold font-semibold tracking-wider font-cinzel text-base not-italic mb-4">My love,</p>
+                        
+                        <p>
+                            In a world full of noise and endless battles, <span class="text-rose-400 font-semibold underline decoration-gold/40">you became my calm</span>. 
+                        </p>
+                        
+                        <p>
+                            You are the warmth behind every difficult day and the courage behind every dream I continue to fight for. Loving you feels like witnessing hope in its purest, most beautiful form.
+                        </p>
+                        
+                        <p class="border-l-2 border-gold/40 pl-4 py-1 italic text-stone-300">
+                            No revolution could ever compare to the way you changed my life. 
+                        </p>
+                        
+                        <p>
+                            And if I had to choose again in every lifetime — <strong class="text-rose-500 font-medium tracking-wide">I would still choose you.</strong>
+                        </p>
+                    </div>
+
+                    <!-- Letter Footer with Hand-written styling vibe -->
+                    <div class="mt-12 pt-8 border-t border-rose-950/60 flex flex-col md:flex-row justify-between items-start md:items-end gap-6">
+                        <div>
+                            <p class="text-[10px] text-stone-500 tracking-widest font-mono uppercase">Laban at Pagmamahal,</p>
+                            <p class="font-playfair italic text-2xl text-gold tracking-widest mt-1">Your Devoted Dev ❤️</p>
+                        </div>
+                        <!-- Seal decoration -->
+                        <div class="self-end flex items-center gap-2 px-3 py-1.5 rounded-lg bg-rose-950/50 border border-gold/20">
+                            <div class="w-3 h-3 rounded-full bg-rose-600 animate-pulse"></div>
+                            <span class="font-mono text-[9px] text-gold tracking-widest">COMMIT SHA-100% PERFECT</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- FILIPINO ACTIVIST LOVE POEM -->
+        <section id="poem" class="py-24 px-6 relative bg-[#070308]/90 border-t border-rose-950/40">
+            <div class="max-w-4xl mx-auto relative z-10">
+                <div class="text-center mb-16">
+                    <h2 class="font-cinzel text-3xl md:text-5xl text-gold tracking-widest mb-4">MAKIBATA AT MAGMAHAL</h2>
+                    <div class="h-[1px] w-48 bg-gradient-to-r from-transparent via-gold to-transparent mx-auto mb-4"></div>
+                    <p class="font-playfair italic text-rose-300 md:text-lg">Tula ng Puso sa Gitna ng Pakikibaka</p>
+                </div>
+
+                <!-- Glowing Poetic Card Layout -->
+                <div class="glass-panel-heavy rounded-3xl p-8 md:p-14 border border-gold/20 shadow-2xl relative overflow-hidden animated-border glow-box-gold">
+                    
+                    <!-- Decorative Light Beam from Top -->
+                    <div class="absolute top-0 left-1/2 -translate-x-1/2 w-80 h-80 bg-gradient-to-b from-amber-500/10 to-transparent rounded-full blur-3xl"></div>
+
+                    <!-- Header Crest -->
+                    <div class="flex justify-center mb-8">
+                        <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-rose-950/40 border border-rose-500/30 text-[10px] text-rose-300 uppercase tracking-widest">
+                            <i data-lucide="book-open" class="w-3.5 h-3.5 text-gold"></i>
+                            Dedicated Poetry
+                        </div>
+                    </div>
+
+                    <!-- Poem Lines (Stylized centered layout) -->
+                    <div class="text-center space-y-6 font-playfair text-stone-100 text-lg md:text-2xl leading-relaxed italic select-text">
+                        <p class="hover:text-gold transition-colors duration-300">Sa bawat sigaw ng bayan,</p>
+                        <p class="hover:text-gold transition-colors duration-300">Ikaw ang katahimikang aking pinanghahawakan.</p>
+                        
+                        <div class="h-[1px] w-24 bg-rose-500/10 mx-auto my-4"></div>
+                        
+                        <p class="hover:text-gold transition-colors duration-300">Sa gitna ng laban at dilim,</p>
+                        <p class="hover:text-gold transition-colors duration-300">Ikaw ang liwanag na hindi kailanman magmamaliw.</p>
+                        
+                        <div class="h-[1px] w-24 bg-rose-500/10 mx-auto my-4"></div>
+                        
+                        <p class="hover:text-gold transition-colors duration-300">Kapag pagod na ang mundo,</p>
+                        <p class="hover:text-gold transition-colors duration-300">Yakap mo ang aking pahinga.</p>
+                        
+                        <div class="h-[1px] w-24 bg-rose-500/10 mx-auto my-4"></div>
+                        
+                        <p class="hover:text-gold transition-colors duration-300">At sa bawat hakbang ng pagbabago,</p>
+                        <p class="hover:text-gold transition-colors duration-300">Kasama kitang pinapangarap ang mas magandang bukas.</p>
+                        
+                        <div class="h-[1px] w-24 bg-rose-500/10 mx-auto my-4"></div>
+                        
+                        <p class="hover:text-rose-400 transition-colors duration-300 font-bold text-xl md:text-3xl text-rose-500">Hindi lang kita mahal bilang aking sinta,</p>
+                        <p class="hover:text-gold transition-colors duration-300 font-bold text-xl md:text-3xl text-gold">Mahal kita bilang kasama sa pakikibaka.</p>
+                        
+                        <div class="h-[1px] w-24 bg-rose-500/10 mx-auto my-4"></div>
+                        
+                        <p class="hover:text-gold transition-colors duration-300">Sapagkat sa puso mong matapang at wagas,</p>
+                        <p class="hover:text-gold transition-colors duration-300">Natagpuan ko ang tahanang walang wakas.</p>
+                    </div>
+
+                    <!-- Floating subtle heart decorative footer -->
+                    <div class="flex justify-center mt-12">
+                        <div class="w-10 h-[2px] bg-gold/40"></div>
+                        <div class="mx-4 text-gold glow-gold"><i data-lucide="shield-alert" class="w-5 h-5"></i></div>
+                        <div class="w-10 h-[2px] bg-gold/40"></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- BIBLE VERSE SECTION -->
+        <section id="scripture" class="py-24 px-6 relative light-beam">
+            <div class="max-w-4xl mx-auto relative z-10">
+                
+                <!-- Premium Glowing Scripture Card -->
+                <div class="glass-panel-heavy rounded-3xl p-10 md:p-16 border-2 border-gold/30 shadow-2xl relative text-center overflow-hidden glow-box-gold">
+                    
+                    <!-- Holy Light Effect background -->
+                    <div class="absolute -top-12 left-1/2 -translate-x-1/2 w-96 h-96 bg-radial bg-gradient-to-b from-amber-500/15 via-transparent to-transparent blur-3xl rounded-full"></div>
+
+                    <!-- Glowing Scripture Icon -->
+                    <div class="inline-flex p-4 rounded-full bg-stone-900/80 border border-gold/30 text-gold mb-8 glow-box-gold relative z-10 animate-pulse">
+                        <i data-lucide="scroll" class="w-8 h-8"></i>
+                    </div>
+
+                    <!-- Elegant Scripture Text -->
+                    <div class="relative z-10 max-w-2xl mx-auto">
+                        <h2 class="font-cinzel text-3xl md:text-5xl text-stone-100 font-bold tracking-widest mb-8 leading-tight">
+                            “I have found <br> the one whom my soul loves.”
+                        </h2>
+                        
+                        <!-- Scripture Reference -->
+                        <p class="font-playfair italic text-xl text-gold tracking-widest glow-gold mb-2">
+                            — Song of Solomon 3:4
+                        </p>
+                        
+                        <div class="h-[1px] w-20 bg-gold/30 mx-auto mt-6"></div>
+                        <p class="text-[10px] text-stone-500 tracking-widest uppercase mt-4">Written in Holy Design</p>
+                    </div>
+
+                </div>
+
+            </div>
+        </section>
+
+    </main>
+
+    <!-- COMPLIMENTS INTERACTIVE MODAL POPUP -->
+    <div id="interactiveModal" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 opacity-0 pointer-events-none transition-all duration-500">
+        <div class="glass-panel-heavy rounded-3xl p-6 md:p-10 max-w-lg w-full border border-gold/40 text-center relative overflow-hidden transform scale-95 transition-transform duration-500 glow-box-gold">
+            <div class="absolute -top-10 -right-10 w-28 h-28 bg-rose-600/15 rounded-full blur-2xl"></div>
+            
+            <button onclick="closeModal()" class="absolute top-4 right-4 text-stone-400 hover:text-white">
+                <i data-lucide="x" class="w-6 h-6"></i>
+            </button>
+
+            <!-- Modal Content Frame -->
+            <div class="py-4">
+                <div class="inline-flex p-3 bg-rose-950/60 rounded-full text-rose-500 border border-rose-500/20 mb-4 animate-ping duration-1000">
+                    <i data-lucide="heart" class="w-6 h-6 fill-current"></i>
+                </div>
+                <h3 class="font-cinzel text-xs tracking-widest text-gold uppercase mb-1">A Declaration of Love</h3>
+                <h4 id="modalTitle" class="font-playfair text-stone-300 italic text-sm mb-4">For my brave and beautiful companion</h4>
+                
+                <p id="modalQuote" class="font-playfair text-xl md:text-2xl text-stone-100 leading-relaxed italic my-6 glow-rose">
+                    “You are the revolution my heart chose.”
+                </p>
+
+                <p id="modalSubtext" class="text-xs text-stone-400 font-sans px-4">
+                    Every beat of my heart is aligned with your struggle and your light.
+                </p>
+            </div>
+
+            <div class="mt-8">
+                <button onclick="closeModal()" class="px-6 py-2 rounded-full bg-gradient-to-r from-rose-950 to-rose-900 border border-rose-500/30 text-stone-200 hover:text-white transition-all text-xs tracking-widest uppercase">
+                    Yakapin ang Pagmamahal
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- PREMIUM FOOTER -->
+    <footer class="relative z-10 bg-stone-950/95 border-t border-rose-950/60 py-12 px-6">
+        <div class="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-6">
+            
+            <!-- Love Signature -->
+            <div class="text-center md:text-left">
+                <h4 class="font-cinzel text-lg text-gold font-bold tracking-widest">SINTA • KASAMA</h4>
+                <p class="font-playfair italic text-xs text-rose-400 mt-1">"Tahanan sa bawat landas ng pakikibaka."</p>
+            </div>
+
+            <!-- Custom Tech Statement -->
+            <div class="text-center">
+                <p class="text-xs text-stone-400 tracking-wide">
+                    Made with love, courage, code, and endless admiration ❤️
+                </p>
+                <p class="font-mono text-[9px] text-stone-600 mt-1">
+                    Compiled via Passion JS 2.5 • Verified on Philippine Soil 🇵🇭
+                </p>
+            </div>
+
+            <!-- Back to top icon button -->
+            <div>
+                <a href="#home" class="p-3 rounded-full bg-rose-950/40 border border-rose-500/20 hover:border-gold/50 text-gold transition-all block" title="Go to top">
+                    <i data-lucide="arrow-up-to-line" class="w-4 h-4"></i>
+                </a>
+            </div>
+
+        </div>
+    </footer>
+
+
+    <!-- JAVASCRIPT LOGIC & INTERACTION ENGINE -->
+    <script>
+        // Initiate Lucide Icons
+        lucide.createIcons();
+
+        // Remove Loading Screen on Window Load
+        window.addEventListener('load', () => {
+            const loader = document.getElementById('loadingScreen');
+            setTimeout(() => {
+                loader.classList.add('opacity-0');
+                setTimeout(() => {
+                    loader.style.display = 'none';
+                }, 1000);
+            }, 2000); // 2 second delay to let romance load perfectly
+        });
+
+        // HANDLE BROKEN GOOGLE DRIVE IMAGE FALLBACKS
+        function handleImageError(imageElement, altKeyword) {
+            console.log(`Image failed to load: ${imageElement.src}. Utilizing high-end vector fallback.`);
+            imageElement.onerror = null; // Prevent infinite loops
+            
+            // Generate customized exquisite romantic canvas/SVG backdrop with the keyword
+            imageElement.outerHTML = `
+                <div class="w-full h-full flex flex-col items-center justify-center p-6 bg-gradient-to-br from-rose-950 to-stone-950 relative">
+                    <div class="absolute inset-4 border border-gold/10 rounded-lg"></div>
+                    <svg class="w-16 h-16 text-rose-600 animate-pulse mb-4" viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/>
+                    </svg>
+                    <span class="font-cinzel text-xs text-gold tracking-widest text-center uppercase">${altKeyword}</span>
+                    <span class="text-[9px] text-stone-500 font-mono mt-2">SECURED ROMANTIC REPLACEMENT</span>
+                </div>
+            `;
+        }
+
+        // Live Clock Display (Manila Time Standard)
+        function updateClock() {
+            const options = {
+                timeZone: 'Asia/Manila',
+                hour: '2-digit',
+                minute: '2-digit',
+                second: '2-digit',
+                hour12: true
+            };
+            const formatter = new Intl.DateTimeFormat('en-US', options);
+            document.getElementById('liveClock').textContent = formatter.format(new Date());
+        }
+        setInterval(updateClock, 1000);
+        updateClock();
+
+        // CANVAS PARTICLES & GLOWING HEARTS SYSTEM
+        const canvas = document.getElementById('particleCanvas');
+        const ctx = canvas.getContext('2d');
+
+        let particles = [];
+        const maxParticles = 45;
+
+        // Resize Canvas dynamically
+        function resizeCanvas() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        }
+        window.addEventListener('resize', resizeCanvas);
+        resizeCanvas();
+
+        class Particle {
+            constructor() {
+                this.reset();
+                this.y = Math.random() * canvas.height; // Spread initially
+            }
+
+            reset() {
+                this.x = Math.random() * canvas.width;
+                this.y = canvas.height + Math.random() * 20;
+                this.size = Math.random() * 3 + 1;
+                this.speedY = Math.random() * 0.8 + 0.3;
+                this.speedX = Math.random() * 0.4 - 0.2;
+                this.alpha = Math.random() * 0.5 + 0.1;
+                this.isHeart = Math.random() > 0.85; // Hearts or sparkles
+                this.pulseSpeed = Math.random() * 0.02 + 0.005;
+                this.pulseDir = 1;
+            }
+
+            update() {
+                this.y -= this.speedY;
+                this.x += this.speedX;
+
+                // Simple pulse loop for opacity
+                this.alpha += this.pulseSpeed * this.pulseDir;
+                if (this.alpha > 0.85 || this.alpha < 0.1) {
+                    this.pulseDir *= -1;
+                }
+
+                // Recycle if exited screen top
+                if (this.y < -20) {
+                    this.reset();
+                }
+            }
+
+            draw() {
+                ctx.save();
+                ctx.globalAlpha = this.alpha;
+                ctx.shadowBlur = 10;
+
+                if (this.isHeart) {
+                    // Draw glowing heart shape
+                    ctx.shadowColor = '#f43f5e';
+                    ctx.fillStyle = '#e11d48';
+                    ctx.beginPath();
+                    const d = this.size * 2.5;
+                    ctx.moveTo(this.x, this.y + d / 4);
+                    ctx.quadraticCurveTo(this.x, this.y, this.x - d / 2, this.y);
+                    ctx.quadraticCurveTo(this.x - d, this.y, this.x - d, this.y + d / 2);
+                    ctx.quadraticCurveTo(this.x - d, this.y + d, this.x, this.y + d * 1.3);
+                    ctx.quadraticCurveTo(this.x + d, this.y + d, this.x + d, this.y + d / 2);
+                    ctx.quadraticCurveTo(this.x + d, this.y, this.x + d / 2, this.y);
+                    ctx.quadraticCurveTo(this.x, this.y, this.x, this.y + d / 4);
+                    ctx.closePath();
+                    ctx.fill();
+                } else {
+                    // Standard premium glowing golden star
+                    ctx.shadowColor = '#d4af37';
+                    ctx.fillStyle = '#f59e0b';
+                    ctx.beginPath();
+                    ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+                    ctx.fill();
+                }
+                ctx.restore();
+            }
+        }
+
+        // Populate initial particle swarm
+        for (let i = 0; i < maxParticles; i++) {
+            particles.push(new Particle());
+        }
+
+        // Core animation tick loop
+        function animateParticles() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            particles.forEach(p => {
+                p.update();
+                p.draw();
+            });
+            requestAnimationFrame(animateParticles);
+        }
+        animateParticles();
+
+        // SPARKLE INTENSIFIER ACTION ON HEART TAPS
+        function addBurstParticles(x, y) {
+            // Spawn 15 rapid golden-rose sparkles
+            for (let i = 0; i < 15; i++) {
+                const p = new Particle();
+                p.x = x + (Math.random() * 80 - 40);
+                p.y = y + (Math.random() * 80 - 40);
+                p.speedY = Math.random() * 3 + 1.5; // Fast rise
+                p.speedX = Math.random() * 4 - 2;
+                p.alpha = 1;
+                p.isHeart = Math.random() > 0.4; // High density of hearts
+                particles.push(p);
+
+                // Garbage control: remove extra swarm elements over time
+                setTimeout(() => {
+                    const idx = particles.indexOf(p);
+                    if (idx > -1) particles.splice(idx, 1);
+                }, 3000);
+            }
+        }
+
+        // COMPLIMENTS ROTATION SYSTEM
+        const compliments = [
+            {
+                quote: "“You are the revolution my heart chose.”",
+                subtext: "In the ultimate equations of hope, standing beside you is my ultimate act of gorgeous rebellion."
+            },
+            {
+                quote: "“Even in chaos, your love feels like peace.”",
+                subtext: "No matter how turbulent the waves of the world get, you will always remain my safe shore."
+            },
+            {
+                quote: "“Your smile feels like sunrise after every long night.”",
+                subtext: "A stunning warmth cutting through cold fatigue, renewing my devotion to our collective dream."
+            },
+            {
+                quote: "“You are poetry written in courage and kindness.”",
+                subtext: "An artful fusion of revolutionary grace and comforting kindness that keeps the universe magical."
+            },
+            {
+                quote: "“No code could ever fully express how much I love you.”",
+                subtext: "You are the infinity loop in my logic, the variable I choose to return with absolute adoration."
+            },
+            {
+                quote: "“In every rally, every dream, every future — I choose you.”",
+                subtext: "A lifetime companion, a fellow activist, and my dearest home. Forever aligned."
+            }
+        ];
+
+        let currentComplimentIdx = 0;
+
+        // Click handler for Love Button triggers gorgeous overlays and letters
+        function triggerLoveEffects(button) {
+            const rect = button.getBoundingClientRect();
+            const clickX = rect.left + rect.width / 2;
+            const clickY = rect.top + rect.height / 2;
+            
+            // Spark explosive particles on click location
+            addBurstParticles(clickX, clickY);
+
+            // Select and configure the next compliment
+            const data = compliments[currentComplimentIdx];
+            document.getElementById('modalQuote').textContent = data.quote;
+            document.getElementById('modalSubtext').textContent = data.subtext;
+
+            // Cycle index smoothly
+            currentComplimentIdx = (currentComplimentIdx + 1) % compliments.length;
+
+            // Trigger Pop-up Card Display with smooth delay
+            setTimeout(() => {
+                const modal = document.getElementById('interactiveModal');
+                const inner = modal.querySelector('.glass-panel-heavy');
+                
+                modal.classList.remove('opacity-0', 'pointer-events-none');
+                inner.classList.remove('scale-95');
+                inner.classList.add('scale-100');
+            }, 300);
+        }
+
+        function closeModal() {
+            const modal = document.getElementById('interactiveModal');
+            const inner = modal.querySelector('.glass-panel-heavy');
+            
+            modal.classList.add('opacity-0', 'pointer-events-none');
+            inner.classList.remove('scale-100');
+            inner.classList.add('scale-95');
+        }
+
+        // Custom Helper Mock Notification Box (Instead of standard ugly Alerts)
+        function alertInfo(message) {
+            const alertBox = document.createElement('div');
+            alertBox.className = 'fixed bottom-8 left-1/2 -translate-x-1/2 z-50 px-6 py-3 rounded-xl glass-panel-heavy border-gold/40 text-xs text-gold tracking-widest uppercase glow-box-gold animate-bounce shadow-2xl flex items-center gap-2 font-mono';
+            alertBox.innerHTML = `<i data-lucide="music-4" class="w-4 h-4 text-rose-500 animate-spin-slow"></i> ${message}`;
+            document.body.appendChild(alertBox);
+            
+            lucide.createIcons();
+
+            setTimeout(() => {
+                alertBox.classList.add('opacity-0', 'transition-opacity', 'duration-500');
+                setTimeout(() => alertBox.remove(), 500);
+            }, 2800);
+        }
+    </script>
+</body>
+</html>
